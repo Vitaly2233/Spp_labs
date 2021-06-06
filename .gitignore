@@ -1,0 +1,13 @@
+**/.idea
+**/venv
+**.x64
+**/Debug
+*.sln
+!*.py
+!SpeedTest.cpp
+*.xlsx
+*.txt
+*.vcxproj
+*.filters
+*.user
+*.png
