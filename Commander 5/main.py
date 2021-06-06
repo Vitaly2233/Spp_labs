@@ -4,8 +4,8 @@ from tkinter import *
 global currentPath
 global folder
 global previousData
-currentPath = 'E://'
-folder = ['']
+currentPath = "E://"
+folder = [""]
 
 
 def listToString(s):
@@ -22,7 +22,7 @@ def listToString(s):
 
 def changePath():
     # clearing
-    directoryFiles.delete(1, 'end')
+    directoryFiles.delete(1, "end")
     lblDirectory.configure(text=currentPath)
     # adding files to list box from currentPath
     pathVal = os.listdir(currentPath)
@@ -35,15 +35,33 @@ def changePath():
 def showCurrent():
     global currentPath
     lblDirectory.configure(text=currentPath)
-    directoryFiles.insert(0, '------back------')
+    directoryFiles.insert(0, "------back------")
     changePath()
+
+
+def newFolder(folderName):
+    newFolder = folderName.get()
+    path = os.path.join(currentPath, newFolder)
+    try:
+        os.mkdir(path)
+    except:
+        print("can't create a file")
+
+
+def deleteFolder(deleteFile):
+    file = deleteFile.get()
+    path = os.path.join(currentPath, file)
+    try:
+        os.remove(path)
+    except:
+        print("can't remove a file")
 
 
 def noDot(checker):
     list(checker)
     counter = 0
     for x in checker:
-        if x == '.':
+        if x == ".":
             counter += 1
     print(counter)
     if counter < 0:
@@ -60,28 +78,37 @@ def clickingItem(event):
     index = selection[0]
     data = event.widget.get(index)
     try:
-        if data != '------back------':
-            currentPath += data + '/'
+        if data != "------back------":
+            currentPath += data + "/"
             folder.append(data)
             changePath()
         else:
-            currentPath = currentPath.replace(folder.pop() + '/', '')
+            currentPath = currentPath.replace(folder.pop() + "/", "")
             showCurrent()
     except ValueError:
         print("error")
-        currentPath = currentPath.replace(folder.pop() + '/', '')
+        currentPath = currentPath.replace(folder.pop() + "/", "")
         showCurrent()
 
 
 window = Tk()
 window.title("Commander")
-window.geometry('500x400')
+window.geometry("500x400")
 lblDirectory = Label(window, text="You're in " + currentPath)
 lblDirectory.grid(column=0, row=1)
 btnShow = Button(window, text="Show directory", command=showCurrent)
 btnShow.grid(column=0, row=0)
 directoryFiles = Listbox()
 directoryFiles.grid(column=0, row=2)
+folderName = StringVar()
+fileName = StringVar()
+btnNewFolder = Button(window, text="new Folder", command=lambda: newFolder(folderName))
+input = Entry(window, textvariable=folderName).grid(column=0, row=3)
+btnRemoveFile = Button(
+    window, text="delete file", command=lambda: deleteFolder(fileName)
+).grid(column=1, row=4)
+deleteFileInput = Entry(window, textvariable=fileName).grid(column=0, row=4)
+btnNewFolder.grid(column=1, row=3)
 directoryFiles.bind("<<ListboxSelect>>", clickingItem)
 
 window.mainloop()
