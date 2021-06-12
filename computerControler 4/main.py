@@ -25,6 +25,10 @@ while True:
     choise = input(
         "Если выключить введите 1, а если перезагрузить нажмите 2, завершить роботу програмы 3: "
     )
+    if input() == "-":
+        cancelShutdown()
+        break
+
     s = int(input("Введите колличество секунд: "))
     m = int(input("Введите колличество минут: "))
     h = int(input("Введите колличество часов: "))
@@ -37,5 +41,3 @@ while True:
     elif choise == "3":
         break
     print("Если хотите отменить действие напишите '-'")
-    if input() == "-":
-        cancelShutdown()

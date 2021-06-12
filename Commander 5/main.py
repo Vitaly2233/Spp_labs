@@ -57,6 +57,17 @@ def deleteFolder(deleteFile):
         print("can't remove a file")
 
 
+def renameFile(fileName, newFileName):
+    file = fileName.get()
+    newFile = newFileName.get()
+    newNameFile = os.path.join(currentPath, newFile)
+    path = os.path.join(currentPath, file)
+    try:
+        os.rename(path, newNameFile)
+    except:
+        print("can't rename the file")
+
+
 def noDot(checker):
     list(checker)
     counter = 0
@@ -95,20 +106,44 @@ window = Tk()
 window.title("Commander")
 window.geometry("500x400")
 lblDirectory = Label(window, text="You're in " + currentPath)
-lblDirectory.grid(column=0, row=1)
-btnShow = Button(window, text="Show directory", command=showCurrent)
-btnShow.grid(column=0, row=0)
-directoryFiles = Listbox()
-directoryFiles.grid(column=0, row=2)
-folderName = StringVar()
-fileName = StringVar()
-btnNewFolder = Button(window, text="new Folder", command=lambda: newFolder(folderName))
-input = Entry(window, textvariable=folderName).grid(column=0, row=3)
-btnRemoveFile = Button(
-    window, text="delete file", command=lambda: deleteFolder(fileName)
-).grid(column=1, row=4)
-deleteFileInput = Entry(window, textvariable=fileName).grid(column=0, row=4)
-btnNewFolder.grid(column=1, row=3)
-directoryFiles.bind("<<ListboxSelect>>", clickingItem)
 
+# vars
+directoryFiles = Listbox()
+folderName = StringVar()
+deletFileName = StringVar()
+fileName = StringVar()
+newFileName = StringVar()
+
+# buttons
+btnShow = Button(window, text="Show directory", command=showCurrent)
+btnNewFolder = Button(window, text="new Folder",
+                      command=lambda: newFolder(folderName))
+btnRemoveFile = Button(
+    window, text="delete file", command=lambda: deleteFolder(deletFileName)
+)
+btnRenameFile = Button(window, text='rename file',
+                       command=lambda: renameFile(fileName, newFileName))
+
+
+# input
+input = Entry(window, textvariable=folderName)
+deleteFileInput = Entry(
+    window, textvariable=deletFileName)
+directoryFiles.bind("<<ListboxSelect>>", clickingItem)
+fileNameI = Entry(window, textvariable=fileName)
+newFileNameI = Entry(window, textvariable=newFileName)
+
+# grid
+btnShow.grid(column=1, row=0)
+lblDirectory.grid(column=0, row=1)
+directoryFiles.grid(column=0, row=2)
+input.grid(column=0, row=3)
+btnNewFolder.grid(column=2, row=3)
+deleteFileInput.grid(column=0, row=4)
+btnRemoveFile.grid(column=2, row=4)
+fileNameI.grid(column=0, row=5)
+newFileNameI.grid(column=1, row=5)
+btnRenameFile.grid(column=2, row=5)
+
+# starting gui
 window.mainloop()

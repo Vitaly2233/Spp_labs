@@ -1,17 +1,38 @@
-print("Время первого светофора: ")
-t1 = float(input())
+lightOne = int(
+    input("Введіть час горіння першого зеленого світла на світлофорі:")
+)
+lightTwo = int(
+    input("Введіть час горіння другого зеленого світла на світлофорі:")
+)
+roadWidth = 4
+lineFirst = int(input("Введіть кількість ліній на першій дорозі(1-2):"))
+lineSecond = int(input("Введіть кількість ліній на другій дорозі(1-2):"))
+numberOfCars = (
+    (lightOne * 10 * roadWidth * lineSecond) / 100
+) + ((lightTwo * 10 * roadWidth * lineFirst) / 100)
+if lineFirst == 1:
+    print("      ║  ^  ║")
+    print("      ║  ^  ║")
+    print("══════╝  ^  ╚══════")
+    if lineSecond == 1:
+        print(" > > >       > > >")
+    if lineSecond == 2:
+        print(" > > >       > > >")
+        print(" > > >       > > >")
+    print("══════╗  ^  ╔══════")
+    print("      ║  ^  ║")
+    print("      ║  ^  ║")
+if lineFirst == 2:
+    print("      ║  ^ ^  ║")
+    print("      ║  ^ ^  ║")
+    print("══════╝  ^ ^  ╚══════")
+    if lineSecond == 1:
+        print(" > > >         > > >")
+    if lineSecond == 2:
+        print(" > > >         > > >")
+        print(" > > >         > > >")
+    print("══════╗  ^ ^  ╔══════")
+    print("      ║  ^ ^  ║")
+    print("      ║  ^ ^  ║")
 
-print("Время второго светофора: ")
-t2 = float(input())
-
-while True:
-    print("Колличество дорог на первой дороге: ")
-    n1 = int(input())
-
-    print("Колличество дорог на второй дороге: ")
-    n2 = int(input())
-    if n1 and n2 % 2 == 0:
-        break
-
-print("Колличество машин которое может пропустить перекресток за один цикл: ")
-print(t1 * 40 * n2 / 100 + t2 * 40 * n1 / 100)
+print(int(numberOfCars))
