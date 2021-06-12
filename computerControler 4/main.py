@@ -1,5 +1,7 @@
 # imports
 import os
+import ctypes
+from infi.systray import SysTrayIcon
 
 
 # functions
@@ -19,15 +21,20 @@ def cancelShutdown():
     os.system("shutdown -a")
 
 
+def turnOffKeyboard(time):
+    ctypes.windll.user32.BlockInput(True)
+
+
 # code
 while True:
+
     print("--Вы хотите выключить или перезагрузить компютер--")
     choise = input(
-        "Если выключить введите 1, а если перезагрузить нажмите 2, завершить роботу програмы 3: "
+        "Если выключить введите 1, а если перезагрузить нажмите 2, отменить действие \"-\", выключить клавиатуру и мышку 3, завершить программу 4: "
     )
-    if input() == "-":
+    if choise == "-":
         cancelShutdown()
-        break
+        continue
 
     s = int(input("Введите колличество секунд: "))
     m = int(input("Введите колличество минут: "))
@@ -39,5 +46,7 @@ while True:
     elif choise == "2":
         reload(str(genTime))
     elif choise == "3":
+        turnOffKeyboard()
+    elif choise == '4':
         break
     print("Если хотите отменить действие напишите '-'")
