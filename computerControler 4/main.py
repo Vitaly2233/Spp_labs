@@ -36,6 +36,8 @@ while True:
         cancelShutdown()
         continue
 
+    if choise == '4':
+        break
     s = int(input("Введите колличество секунд: "))
     m = int(input("Введите колличество минут: "))
     h = int(input("Введите колличество часов: "))
@@ -47,6 +49,5 @@ while True:
         reload(str(genTime))
     elif choise == "3":
         turnOffKeyboard()
-    elif choise == '4':
-        break
+
     print("Если хотите отменить действие напишите '-'")
