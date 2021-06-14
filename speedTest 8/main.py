@@ -1,24 +1,26 @@
+from ctypes import pythonapi
 from random import randint
 import random
 import string
 import datetime
 import openpyxl
+import sys
 
 
 # function that returns a number of the specific type you want to have, and with random values
 def generateElement(type):
-	if type == 1:
-		return randint(0, 100)
+    if type == 1:
+        return randint(0, 100)
 
-	if type == 2:
-		return random.random()
+    if type == 2:
+        return random.random()
 
-	if type == 3:
-		return random.choice(string.ascii_letters)
+    if type == 3:
+        return random.choice(string.ascii_letters)
 
-	if type == 4:
-		generatedType = randint(1, 3)
-		return generateElement(generatedType)
+    if type == 4:
+        generatedType = randint(1, 3)
+        return generateElement(generatedType)
 
 
 print("Введите колличество елементов в массиве")
@@ -29,16 +31,19 @@ typeOfElements = int(input())
 i = 0
 elements = []
 
+arr = []
 
 start = datetime.datetime.now()
 while i < numberOfElements:
-	generateElement(typeOfElements)
-	i += 1
-	if i == numberOfElements:
-		break
+    arr.append(generateElement(typeOfElements))
+    i += 1
+    if numberOfElements < 100000:
+        print(str(arr[i - 1]))
+    if i == numberOfElements:
+        break
 finish = datetime.datetime.now()
 duration = finish - start
-print("Время выполнения: ", duration)
+print("\nВремя выполнения: ", duration)
 # openpyxl is here
 path = "sample.xlsx"
 wb = openpyxl.load_workbook(path)

@@ -39,6 +39,7 @@ int main() {
 		for (int i = 0; i < length; i++)
 		{
 			myArray[i] = generate<int>(1);
+			cout << myArray[i] << endl;
 		}
 	}
 	if (typeOfNumbers == 2) {
@@ -46,6 +47,7 @@ int main() {
 		for (int i = 0; i < length; i++)
 		{
 			myArray[i] = generate<float>(2);
+			cout << myArray[i] << endl;
 		}
 	}
 	if (typeOfNumbers == 3) {
@@ -53,6 +55,7 @@ int main() {
 		for (int i = 0; i < length; i++)
 		{
 			myArray[i] = generate<char>(3);
+			cout << myArray[i] << endl;
 		}
 	}
 
@@ -62,7 +65,7 @@ int main() {
 
 	//adding result to the file
 	ofstream fout;
-	fout.open("E://Python/MetelapLaba/cppResult.txt", ofstream::app);
+	fout.open("E://Python/speedTest 8/cppResult.txt", ofstream::app);
 
 	fout << "\nВремя заполнения массива: " << duration.count() << "\t тип елементов: " << typeOfNumbers;
 
